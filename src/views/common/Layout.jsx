@@ -8,8 +8,8 @@ module.exports = function Layout({ children, title }) {
     <html lang="en">
       <Head title={title} />
       <body>
+        <Header />
         <main>
-          <Header />
           {children}
           <Footer />
         </main>
