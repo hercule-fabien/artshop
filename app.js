@@ -7,6 +7,11 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const registerRouter = require('./src/routes/register.routes');
 const loginRouter = require('./src/routes/login.routes');
+const {
+  secureRoute,
+  checkUser,
+} = require('./src/middleware/common');
+const errorHandler = require('./src/middleware/error-handler');
 
 const { PORT } = process.env;
 
@@ -21,10 +26,11 @@ const sessionConfig = {
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 999999999,
+    maxAge: 2 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   },
 };
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -32,6 +38,7 @@ app.use(session(sessionConfig));
 
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`===> Server Up and Running on port:${PORT}`);

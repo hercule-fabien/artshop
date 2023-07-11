@@ -6,7 +6,7 @@ const { User } = require('../../db/models');
 
 const registerRouter = new Router();
 
-registerRouter.get('/', (req, res) => {
+registerRouter.get('/', (req, res, next) => {
   renderTemplate(Register, { title: 'Регистрация' }, res);
 });
 

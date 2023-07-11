@@ -9,7 +9,7 @@ module.exports = function Register({ title }) {
       <Layout title={title}>
 
         <h1>Войдите</h1>
-        <form action="/register" method="POST">
+        <form action="/login" method="POST">
           <p>
             <label htmlFor="email">Электронная почта</label>
             <input type="email" id="email" name="email" required />
