@@ -6,9 +6,17 @@ const { Product } = require('../../db/models');
 
 const adminRouter = new Router();
 
-adminRouter.get('/products', (req, res) => {
+adminRouter.get('/products', async (req, res) => {
   const { uid, isAdmin } = req.session;
-  renderTemplate(AllProductsAdmin, { title: 'Управление товарами', uid, isAdmin }, res);
+  try {
+    const products = await Product.findAll({ raw: true });
+    console.log(products);
+    renderTemplate(AllProductsAdmin, {
+      title: 'Управление товарами', uid, isAdmin, products,
+    }, res);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 adminRouter.get('/products/new', (req, res) => {
@@ -21,11 +29,12 @@ adminRouter.post('/products', async (req, res) => {
     productName, summary, price, description,
   } = req.body;
   const imagePath = req.file.path;
+  const imageRelativePath = imagePath.replace('public', '');
   try {
     const newProduct = await Product.create({
       productName,
       price,
-      image: imagePath,
+      image: imageRelativePath,
       description,
       summary,
       createdAt: new Date(),

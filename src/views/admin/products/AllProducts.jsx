@@ -1,7 +1,10 @@
 const React = require('react');
 const Layout = require('../../common/Layout');
+const ProductItem = require('./includes/ProductItem');
 
-module.exports = function AllProductsAdmin({ title, uid, isAdmin }) {
+module.exports = function AllProductsAdmin({
+  title, uid, isAdmin, products,
+}) {
   return (
     <Layout title={title} uid={uid} isAdmin={isAdmin}>
       <h1>{title}</h1>
@@ -11,7 +14,17 @@ module.exports = function AllProductsAdmin({ title, uid, isAdmin }) {
           <a href="/admin/products/new" className="btn">Добавить товар</a>
         </p>
       </section>
-      <section><p>Список товаров...</p></section>
+      <section>
+        <ul>
+          {
+            products.map((product) => (
+              <li key={product.id}>
+                <ProductItem product={product} />
+              </li>
+            ))
+          }
+        </ul>
+      </section>
     </Layout>
   );
 };

@@ -5,7 +5,7 @@ module.exports = function Login({ title, uid, isAdmin }) {
   return (
     <>
       <link rel="stylesheet" href="/css/auth.css" />
-      <link rel="stylesheet" href="/css/forms.css" />
+      <link rel="stylesheet" href="/css/forms.css" crossOrigin="anonymous" />
       <link rel="stylesheet" href="/css/styles.css" />
       <Layout title={title} uid={uid} isAdmin={isAdmin}>
         <script defer src="/js/login.js" />

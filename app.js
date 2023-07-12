@@ -37,7 +37,7 @@ const sessionConfig = {
 };
 
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, 'public', 'uploads', 'images'),
+  destination: path.join('public', 'images'),
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
     const extension = path.extname(file.originalname);
