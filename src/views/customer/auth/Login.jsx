@@ -1,14 +1,14 @@
 const React = require('react');
 const Layout = require('../../common/Layout');
 
-module.exports = function Register({ title }) {
+module.exports = function Login({ title, uid }) {
   return (
     <>
       <link rel="stylesheet" href="/css/auth.css" />
       <link rel="stylesheet" href="/css/forms.css" />
-      <Layout title={title}>
-
-        <h1>Войдите</h1>
+      <Layout title={title} uid={uid}>
+        <script defer src="/js/login.js" />
+        <h1>{title}</h1>
         <form action="/login" method="POST">
           <p>
             <label htmlFor="email">Электронная почта</label>
@@ -24,7 +24,7 @@ module.exports = function Register({ title }) {
               required
             />
           </p>
-          <button className="btn">Войти</button>
+          <button type="submit" className="btn">Войти</button>
           <p id="switch-form">
             Нет аккаунта?
             <a href="/register"> Зарегистрироваться</a>

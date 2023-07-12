@@ -1,18 +1,18 @@
 const React = require('react');
 const Layout = require('../../common/Layout');
 
-module.exports = function Register({ title }) {
+module.exports = function Register({ title, uid }) {
   return (
     <>
       <link rel="stylesheet" href="/css/auth.css" />
       <link rel="stylesheet" href="/css/forms.css" />
-      <Layout title={title}>
-
+      <Layout title={title} uid={uid}>
+        <script defer src="/js/register.js" />
         <h1>Зарегистрируйтесь</h1>
         <form action="/register" method="POST">
           <p>
             <label htmlFor="email">Электронная почта</label>
-            <input type="email" id="email" name="email" required />
+            <input type="email" id="email" name="email" />
           </p>
           <p>
             <label htmlFor="password">Пароль</label>
@@ -21,13 +21,12 @@ module.exports = function Register({ title }) {
               id="password"
               name="password"
               minLength="6"
-              required
             />
           </p>
           <hr />
           <p>
             <label htmlFor="fullname">Имя, Фамилия</label>
-            <input type="text" id="fullname" name="fullname" required />
+            <input type="text" id="fullname" name="fullname" />
           </p>
           <p>
             <label htmlFor="street">Улица (с номером дома и квартиры)</label>

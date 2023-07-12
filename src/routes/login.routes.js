@@ -7,7 +7,8 @@ const { User } = require('../../db/models');
 const loginRouter = new Router();
 
 loginRouter.get('/', (req, res) => {
-  renderTemplate(Login, {}, res);
+  const { uid } = req.session;
+  renderTemplate(Login, { title: 'Авторизоваться', uid }, res);
 });
 loginRouter.post('/', async (req, res) => {
   const { email, password } = req.body;
@@ -20,7 +21,8 @@ loginRouter.post('/', async (req, res) => {
         req.session.email = email;
         req.session.fullname = user.fullname;
         req.session.save(() => {
-          res.redirect('/');
+          // res.redirect('/');
+          res.json({ msg: 'OK' });
         });
       } else {
         res.json({ err: 'Пароль неверный' });
@@ -29,7 +31,7 @@ loginRouter.post('/', async (req, res) => {
       res.json({ err: 'Такой пользователь не найден' });
     }
   } catch (error) {
-    res.send('Чтото пошло не так', error);
+    res.status(500).send(error);
   }
 });
 

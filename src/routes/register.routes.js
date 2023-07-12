@@ -1,13 +1,16 @@
 const bcrypt = require('bcrypt');
 const { Router } = require('express');
 const renderTemplate = require('../lib/renderTemplate');
+const ErrorHandler = require('../views/common/500');
+const UserExists = require('../views/common/UserExists');
 const Register = require('../views/customer/auth/Register');
 const { User } = require('../../db/models');
 
 const registerRouter = new Router();
 
 registerRouter.get('/', (req, res, next) => {
-  renderTemplate(Register, { title: 'Регистрация' }, res);
+  const { uid } = req.session;
+  renderTemplate(Register, { title: 'Регистрация', uid }, res);
 });
 
 registerRouter.post('/', async (req, res) => {
@@ -18,7 +21,7 @@ registerRouter.post('/', async (req, res) => {
     const hash = await bcrypt.hash(password, 12);
     const user = await User.findOne({ where: { email } });
     if (user) {
-      res.json({ err: 'Такой пользователь существует' });
+      renderTemplate(UserExists, {}, res);
     } else {
       const newUser = await User.create({
         email,
@@ -32,11 +35,13 @@ registerRouter.post('/', async (req, res) => {
       req.session.email = newUser.email;
       req.session.fullname = newUser.fullname;
       req.session.save(() => {
-        res.redirect('/login');
+        // res.redirect('/login');
+        res.json({ msg: 'OK' });
       });
     }
   } catch (error) {
     console.error(error);
+    res.json({ err: 'Ошибка регистрации' });
   }
 });
 

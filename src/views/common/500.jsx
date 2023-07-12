@@ -1,11 +1,9 @@
 const React = require('react');
 const Layout = require('./Layout');
 
-module.exports = function Register() {
+module.exports = function ErrorHandler() {
   return (
     <>
-      <link rel="stylesheet" href="/css/auth.css" />
-      <link rel="stylesheet" href="/css/forms.css" />
       <Layout title="Ошибка сервера">
 
         <h1>Что-то пошло не так</h1>

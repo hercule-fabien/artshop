@@ -5,7 +5,8 @@ const AllProducts = require('../views/customer/products/AllProducts');
 const productsRouter = new Router();
 
 productsRouter.get('/', (req, res) => {
-  renderTemplate(AllProducts, null, res);
+  const { uid } = req.session;
+  renderTemplate(AllProducts, { title: 'Все товары', uid }, res);
 });
 
 module.exports = productsRouter;

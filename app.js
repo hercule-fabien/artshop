@@ -40,7 +40,7 @@ app.use(session(sessionConfig));
 
 app.use('/', indexRouter);
 app.use('/register', secureRoute, registerRouter);
-app.use('/login', secureRoute, loginRouter);
+app.use('/login', loginRouter);
 app.use('/products', productsRouter);
 app.use(errorHandler);
 
