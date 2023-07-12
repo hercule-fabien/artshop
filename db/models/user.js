@@ -10,7 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // Associate User with Order model
+      User.hasMany(models.Order, {
+        foreignKey: 'userId',
+      });
+
+      // Associate User with Product model through the junction table
+      User.belongsToMany(models.Product, {
+        through: models.OrderItem,
+        foreignKey: 'userId',
+        otherKey: 'productId',
+      });
     }
   }
   User.init({
@@ -20,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     street: DataTypes.STRING,
     zipCode: DataTypes.INTEGER,
     city: DataTypes.STRING,
+    isAdmin: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'User',

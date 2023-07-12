@@ -32,10 +32,10 @@ registerRouter.post('/', async (req, res) => {
         zipCode,
       });
       req.session.uid = newUser.id;
+      req.session.isAdmin = newUser.isAdmin;
       req.session.email = newUser.email;
       req.session.fullname = newUser.fullname;
       req.session.save(() => {
-        // res.redirect('/login');
         res.json({ msg: 'OK' });
       });
     }

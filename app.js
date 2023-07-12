@@ -7,13 +7,14 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const registerRouter = require('./src/routes/register.routes');
 const loginRouter = require('./src/routes/login.routes');
+const logoutRouter = require('./src/routes/logout.routes');
 const {
   secureRoute,
   checkUser,
 } = require('./src/middleware/common');
 const errorHandler = require('./src/middleware/error-handler');
-const indexRouter = require("./src/routes/index.routes");
-const productsRouter = require("./src/routes/products.routes");
+const indexRouter = require('./src/routes/index.routes');
+const productsRouter = require('./src/routes/products.routes');
 
 const { PORT } = process.env;
 
@@ -40,8 +41,9 @@ app.use(session(sessionConfig));
 
 app.use('/', indexRouter);
 app.use('/register', secureRoute, registerRouter);
-app.use('/login', loginRouter);
+app.use('/login', secureRoute, loginRouter);
 app.use('/products', productsRouter);
+app.use('/logout', logoutRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

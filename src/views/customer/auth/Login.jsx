@@ -1,13 +1,13 @@
 const React = require('react');
 const Layout = require('../../common/Layout');
 
-module.exports = function Login({ title, uid }) {
+module.exports = function Login({ title, uid, isAdmin }) {
   return (
     <>
       <link rel="stylesheet" href="/css/auth.css" />
       <link rel="stylesheet" href="/css/forms.css" />
       <link rel="stylesheet" href="/css/styles.css" />
-      <Layout title={title} uid={uid}>
+      <Layout title={title} uid={uid} isAdmin={isAdmin}>
         <script defer src="/js/login.js" />
         <h1>{title}</h1>
         <form action="/login" method="POST">
