@@ -6,6 +6,7 @@ module.exports = function Register({ title, uid }) {
     <>
       <link rel="stylesheet" href="/css/auth.css" />
       <link rel="stylesheet" href="/css/forms.css" />
+      <link rel="stylesheet" href="/css/styles.css" />
       <Layout title={title} uid={uid}>
         <script defer src="/js/register.js" />
         <h1>Зарегистрируйтесь</h1>

@@ -6,6 +6,7 @@ module.exports = function Login({ title, uid }) {
     <>
       <link rel="stylesheet" href="/css/auth.css" />
       <link rel="stylesheet" href="/css/forms.css" />
+      <link rel="stylesheet" href="/css/styles.css" />
       <Layout title={title} uid={uid}>
         <script defer src="/js/login.js" />
         <h1>{title}</h1>
