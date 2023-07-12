@@ -12,6 +12,8 @@ const {
   checkUser,
 } = require('./src/middleware/common');
 const errorHandler = require('./src/middleware/error-handler');
+const indexRouter = require("./src/routes/index.routes");
+const productsRouter = require("./src/routes/products.routes");
 
 const { PORT } = process.env;
 
@@ -36,8 +38,10 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sessionConfig));
 
-app.use('/register', registerRouter);
-app.use('/login', loginRouter);
+app.use('/', indexRouter);
+app.use('/register', secureRoute, registerRouter);
+app.use('/login', secureRoute, loginRouter);
+app.use('/products', productsRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

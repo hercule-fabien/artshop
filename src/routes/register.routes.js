@@ -28,6 +28,7 @@ registerRouter.post('/', async (req, res) => {
         city,
         zipCode,
       });
+      req.session.uid = newUser.id;
       req.session.email = newUser.email;
       req.session.fullname = newUser.fullname;
       req.session.save(() => {
