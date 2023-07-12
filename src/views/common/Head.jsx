@@ -13,6 +13,7 @@ module.exports = function Head({ title }) {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
       <link rel="stylesheet" href="/css/styles.css" />
+      <script defer src="/js/mobile.js" />
     </head>
   );
 };
