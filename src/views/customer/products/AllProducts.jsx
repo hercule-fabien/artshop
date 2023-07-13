@@ -3,10 +3,10 @@ const Layout = require('../../common/Layout');
 const ProductItem = require('../../common/includes/ProductItem');
 
 module.exports = function AllProducts({
-  title, uid, isAdmin, products,
+  title, uid, isAdmin, products, cartLength
 }) {
   return (
-    <Layout title={title} uid={uid} isAdmin={isAdmin}>
+    <Layout title={title} uid={uid} isAdmin={isAdmin} cartLength={cartLength}>
       <link rel="stylesheet" href="/css/products.css" />
       <script defer src="/js/productManagement.js" />
       <h1>{title}</h1>

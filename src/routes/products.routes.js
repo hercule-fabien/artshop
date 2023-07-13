@@ -9,10 +9,12 @@ const productsRouter = new Router();
 
 productsRouter.get('/', async (req, res) => {
   const { uid, isAdmin } = req.session;
+  const cart = req.session.cart || [];
+  const cartLength = cart.length;
   try {
     const products = await Product.findAll({ raw: true });
     renderTemplate(AllProducts, {
-      title: 'Все товары', uid, isAdmin, products,
+      title: 'Все товары', uid, isAdmin, products, cartLength,
     }, res);
   } catch (error) {
     console.error(error);

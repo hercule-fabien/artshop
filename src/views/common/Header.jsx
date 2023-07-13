@@ -1,7 +1,7 @@
 const React = require('react');
 const NavItems = require('./NavItems');
 
-module.exports = function Header({ title, uid, isAdmin }) {
+module.exports = function Header({ title, uid, isAdmin, cartLength }) {
   return (
     <>
       <link rel="stylesheet" href="/css/navigation.css" />
@@ -14,7 +14,7 @@ module.exports = function Header({ title, uid, isAdmin }) {
             </ul>
           </nav>
         ) : (
-          <NavItems uid={uid} isAdmin={isAdmin} />
+          <NavItems uid={uid} isAdmin={isAdmin} cartLength={cartLength} />
         )}
         <button id="mobile-menu-btn">
           <span />
