@@ -2,7 +2,6 @@ const { Router } = require('express');
 const renderTemplate = require('../lib/renderTemplate');
 const AllProducts = require('../views/customer/products/AllProducts');
 const { Product } = require('../../db/models');
-const UpdateProduct = require('../views/admin/products/UpdateProduct');
 const ProductItem = require('../views/customer/products/ProductDetails');
 
 const productsRouter = new Router();

@@ -1,24 +1,61 @@
 const express = require('express');
+const renderTemplate = require('../lib/renderTemplate');
+const CartView = require('../views/customer/cart/CartView');
 
 const router = express.Router();
 const { Cart, User, Product } = require('../../db/models');
 
 // Get all cart items
 router.get('/', async (req, res) => {
+  const { uid, isAdmin } = req.session;
+  const cart = req.session.cart || [];
+  const cartLength = cart.length;
   try {
-    // Get the cart from the session
-    const cart = req.session.cart || [];
+    const user = await User.findByPk(uid);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
     // Find all cart items based on the product IDs in the cart
     const carts = await Cart.findAll({
-      where: { id: cart },
+      where: { userId: user.id },
       include: [
         { model: User },
         { model: Product },
       ],
     });
 
-    res.json(carts);
+    // console.log('CARTS ===>', carts);
+
+    const summedPrices = {};
+
+    // Iterate over the carts and sum the prices for each product ID
+    carts.forEach((cartItem) => {
+      const { productId, price, quantity } = cartItem;
+      if (summedPrices[productId]) {
+        summedPrices[productId] += price * quantity;
+      } else {
+        summedPrices[productId] = price * quantity;
+      }
+    });
+
+    // Create a new array with the summed prices
+    const summedCarts = Object.keys(summedPrices).map((productId) => {
+      const cartItems = carts.filter((cartItem) => cartItem.productId === parseInt(productId, 10));
+      const productName = cartItems[0]?.Product?.dataValues?.productName || 'Unknown'; // Access productName from the first cart item
+      const totalQuantity = cartItems.reduce((accumulator, cartItem) => accumulator + cartItem.quantity, 0); // Calculate the total quantity
+      return {
+        productId: parseInt(productId, 10),
+        productName,
+        price: summedPrices[productId],
+        totalQuantity,
+      };
+    });
+
+    renderTemplate(CartView, {
+      title: 'Корзина', uid, isAdmin, cartLength, carts: summedCarts,
+    }, res);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
