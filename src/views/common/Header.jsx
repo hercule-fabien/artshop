@@ -1,7 +1,9 @@
 const React = require('react');
 const NavItems = require('./NavItems');
 
-module.exports = function Header({ title, uid, isAdmin, cartLength }) {
+module.exports = function Header({
+  title, uid, isAdmin, cartLength,
+}) {
   return (
     <>
       <link rel="stylesheet" href="/css/navigation.css" />
@@ -23,7 +25,7 @@ module.exports = function Header({ title, uid, isAdmin, cartLength }) {
         </button>
       </header>
       <aside id="mobile-menu">
-        <NavItems uid={uid} isAdmin={isAdmin} />
+        <NavItems uid={uid} isAdmin={isAdmin} cartLength={cartLength} />
       </aside>
     </>
   );

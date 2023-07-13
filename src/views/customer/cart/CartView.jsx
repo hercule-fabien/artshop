@@ -12,6 +12,7 @@ module.exports = function CartView({
   return (
     <Layout title={title} uid={uid} isAdmin={isAdmin} cartLength={cartLength}>
       <link rel="stylesheet" href="/css/cart.css" />
+      <script defer src="/js/currencyApi.js" />
       <h1>{title}</h1>
       <ul id="cart-items">
         {carts.map((cart) => (
@@ -21,9 +22,10 @@ module.exports = function CartView({
         ))}
       </ul>
       <div id="cart-total">
-        <p>Всего къ оплате: {totalPrice} &#8381;</p>
+        <p>Всего къ оплате: <span id="total-price">{totalPrice}</span> &#8381;</p>
         <button className="btn">Оплатить</button>
       </div>
     </Layout>
   );
 };
+

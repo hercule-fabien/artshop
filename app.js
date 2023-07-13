@@ -21,6 +21,7 @@ const indexRouter = require('./src/routes/index.routes');
 const productsRouter = require('./src/routes/products.routes');
 
 const { PORT } = process.env;
+const apiKey = process.env.API_KEY;
 
 const app = express();
 
@@ -53,6 +54,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sessionConfig));
 const upload = multer({ storage });
 app.use(upload.single('image'));
+
+app.get('/api/api-key', (req, res) => {
+  res.json({ apiKey });
+});
 
 app.use('/', indexRouter);
 app.use('/register', secureRoute, registerRouter);

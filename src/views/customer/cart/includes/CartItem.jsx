@@ -2,7 +2,6 @@ const React = require('react');
 const Layout = require('../../../common/Layout');
 
 module.exports = function CartItem({ cart, isAdmin }) {
-  console.log('===> CART', cart);
   return (
     <article className="cart-item">
       <div className="cart-item-info">
@@ -10,9 +9,14 @@ module.exports = function CartItem({ cart, isAdmin }) {
         <p>
           {cart.price}
           {' '}
-          (
-          {cart.totalQuantity} x {cart.price / cart.totalQuantity}
-          )
+          <span className="cart-product-price">
+            (
+            {cart.totalQuantity}
+            {' '}
+            x
+            {cart.price / cart.totalQuantity}
+            )
+          </span>
         </p>
       </div>
 

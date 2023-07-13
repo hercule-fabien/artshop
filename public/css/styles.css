@@ -116,3 +116,22 @@ a {
     background-color: var(--color-primary-500);
     color: var(--color-primary-500-contrast);
 }
+
+#quote-block {
+    margin-top: var(--space-8);
+}
+
+#quote-block h2 {
+    font-size: 1rem;
+    color: var(--color-primary-200);
+}
+
+#quote-block button {
+    margin-bottom: var(--space-4);
+}
+
+#author span, #quote span {
+    margin-right: var(--space-2);
+    font-weight: bolder;
+    color: var(--color-primary-500);
+}
