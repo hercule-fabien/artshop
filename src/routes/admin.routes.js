@@ -1,6 +1,9 @@
 const { Router } = require('express');
+const fs = require('fs');
+const path = require('path');
 const AllProductsAdmin = require('../views/admin/products/AllProducts');
 const NewProduct = require('../views/admin/products/NewProduct');
+const UpdateProduct = require('../views/admin/products/UpdateProduct');
 const renderTemplate = require('../lib/renderTemplate');
 const { Product } = require('../../db/models');
 
@@ -43,6 +46,55 @@ adminRouter.post('/products', async (req, res) => {
     res.redirect('/admin/products');
   } catch (error) {
     console.error(error);
+  }
+});
+
+adminRouter.get('/products/update/:id', async (req, res) => {
+  const { id } = req.params;
+  const { uid, isAdmin } = req.session;
+  try {
+    const product = await Product.findByPk(id);
+    renderTemplate(UpdateProduct, {
+      title: 'Изменить товар',
+      uid,
+      isAdmin,
+      product,
+    }, res);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+adminRouter.post('/products/update/:id', async (req, res) => {
+  const { id } = req.params;
+  const {
+    productName, summary, price, description,
+  } = req.body;
+
+  try {
+    const product = await Product.findByPk(id);
+    if (!product) {
+      return res.sendStatus(404);
+    }
+
+    product.productName = productName;
+    product.summary = summary;
+    product.price = price;
+    product.description = description;
+
+    if (req.file) {
+      if (product.image) {
+        fs.unlinkSync(path.join('public', product.image));
+      }
+      product.image = `/images/${req.file.filename}`;
+    }
+
+    await product.save();
+
+    return res.redirect('/admin/products');
+  } catch (error) {
+    console.error(error);
+    return res.sendStatus(500);
   }
 });
 

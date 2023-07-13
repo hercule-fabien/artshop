@@ -7,7 +7,7 @@ module.exports = function ProductItem({ product }) {
       <div className="product-item-content">
         <h2>{product.productName}</h2>
         <div className="product-item-actions">
-          <a className="btn btn-alt" href={`/admin/products/${product.id}`}>Просмотр и редактирование</a>
+          <a className="btn btn-alt" href={`/admin/products/update/${product.id}`}>Редактировать</a>
           <button className="btn btn-alt">Удалить</button>
         </div>
       </div>
