@@ -24,6 +24,8 @@ productsRouter.get('/', async (req, res) => {
 productsRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
   const { uid, isAdmin } = req.session;
+  const cart = req.session.cart || [];
+  const cartLength = cart.length;
   try {
     const product = await Product.findByPk(id);
     renderTemplate(ProductItem, {
@@ -31,6 +33,7 @@ productsRouter.get('/:id', async (req, res) => {
       uid,
       isAdmin,
       product,
+      cartLength,
     }, res);
   } catch (error) {
     console.error(error);
