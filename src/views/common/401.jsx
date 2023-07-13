@@ -1,12 +1,11 @@
 const React = require('react');
 const Layout = require('./Layout');
 
-module.exports = function ErrorHandler({ errTitle }) {
+module.exports = function page401() {
   return (
     <Layout title="Ошибка сервера">
-
-      <h1>{errTitle}</h1>
-      <p>К сожалению, что-то пошло не так, пожалуйста попробуйте зайти позже</p>
+      <h1>Ввойдите со своими учетными данными</h1>
+      <p>Вы не авторизованы на сайте</p>
       <p><a className="btn" href="/">Назад на главную страницу</a></p>
     </Layout>
   );

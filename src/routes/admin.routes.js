@@ -13,7 +13,6 @@ adminRouter.get('/products', async (req, res) => {
   const { uid, isAdmin } = req.session;
   try {
     const products = await Product.findAll({ raw: true });
-    console.log(products);
     renderTemplate(AllProductsAdmin, {
       title: 'Управление товарами', uid, isAdmin, products,
     }, res);

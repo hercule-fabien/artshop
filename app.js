@@ -10,6 +10,7 @@ const registerRouter = require('./src/routes/register.routes');
 const loginRouter = require('./src/routes/login.routes');
 const logoutRouter = require('./src/routes/logout.routes');
 const adminRouter = require('./src/routes/admin.routes');
+const protectRoutes = require('./src/middleware/protectRoutes');
 const {
   secureRoute,
   checkUser,
@@ -55,9 +56,10 @@ app.use(upload.single('image'));
 app.use('/', indexRouter);
 app.use('/register', secureRoute, registerRouter);
 app.use('/login', secureRoute, loginRouter);
-app.use('/admin', adminRouter);
 app.use('/products', productsRouter);
 app.use('/logout', logoutRouter);
+app.use(protectRoutes);
+app.use('/admin', adminRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
