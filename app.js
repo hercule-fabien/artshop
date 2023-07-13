@@ -10,6 +10,7 @@ const registerRouter = require('./src/routes/register.routes');
 const loginRouter = require('./src/routes/login.routes');
 const logoutRouter = require('./src/routes/logout.routes');
 const adminRouter = require('./src/routes/admin.routes');
+const cartRouter = require('./src/routes/cart.routes');
 const protectRoutes = require('./src/middleware/protectRoutes');
 const {
   secureRoute,
@@ -58,6 +59,7 @@ app.use('/register', secureRoute, registerRouter);
 app.use('/login', secureRoute, loginRouter);
 app.use('/products', productsRouter);
 app.use('/logout', logoutRouter);
+app.use('/cart', cartRouter);
 app.use(protectRoutes);
 app.use('/admin', adminRouter);
 app.use(errorHandler);

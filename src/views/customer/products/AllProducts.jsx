@@ -1,30 +1,24 @@
 const React = require('react');
 const Layout = require('../../common/Layout');
-const ProductItem = require("../../admin/products/includes/ProductItem");
+const ProductItem = require('../../common/includes/ProductItem');
 
-module.exports = function AllProducts({ title, uid, isAdmin, products, }) {
+module.exports = function AllProducts({
+  title, uid, isAdmin, products,
+}) {
   return (
     <Layout title={title} uid={uid} isAdmin={isAdmin}>
       <link rel="stylesheet" href="/css/products.css" />
       <script defer src="/js/productManagement.js" />
       <h1>{title}</h1>
-      <section>
-        <h2>Все товары</h2>
-        {/*<p>*/}
-        {/*  <a href="/admin/products/new" className="btn">Добавить товар</a>*/}
-        {/*</p>*/}
-      </section>
-      <section>
-        <ul id="products-grid">
-          {
+      <ul id="products-grid">
+        {
             products.map((product) => (
               <li key={product.id}>
-                <ProductItem product={product} />
+                <ProductItem product={product} isAdmin={isAdmin} />
               </li>
             ))
           }
-        </ul>
-      </section>
+      </ul>
     </Layout>
   );
 };
