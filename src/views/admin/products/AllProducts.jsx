@@ -7,6 +7,7 @@ module.exports = function AllProductsAdmin({
 }) {
   return (
     <Layout title={title} uid={uid} isAdmin={isAdmin}>
+      <link rel="stylesheet" href="/css/products.css" />
       <h1>{title}</h1>
       <section>
         <h2>Управлять товарами</h2>
@@ -15,7 +16,7 @@ module.exports = function AllProductsAdmin({
         </p>
       </section>
       <section>
-        <ul>
+        <ul id="products-grid">
           {
             products.map((product) => (
               <li key={product.id}>
