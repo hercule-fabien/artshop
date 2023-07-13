@@ -98,4 +98,21 @@ adminRouter.post('/products/update/:id', async (req, res) => {
   }
 });
 
+adminRouter.get('/products/delete/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = await Product.findByPk(id);
+    if (!product) {
+      return res.sendStatus(404);
+    }
+
+    await product.destroy();
+
+    return res.redirect('/admin/products');
+  } catch (error) {
+    return res.json({ msg: 'Deleting error' });
+  }
+});
+
 module.exports = adminRouter;
