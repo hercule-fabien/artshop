@@ -98,7 +98,7 @@ adminRouter.post('/products/update/:id', async (req, res) => {
   }
 });
 
-adminRouter.get('/products/delete/:id', async (req, res) => {
+adminRouter.delete('/products/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -109,7 +109,7 @@ adminRouter.get('/products/delete/:id', async (req, res) => {
 
     await product.destroy();
 
-    return res.redirect('/admin/products');
+    return res.json({ msg: 'Delete successful' });
   } catch (error) {
     return res.json({ msg: 'Deleting error' });
   }

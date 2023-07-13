@@ -8,6 +8,7 @@ module.exports = function AllProductsAdmin({
   return (
     <Layout title={title} uid={uid} isAdmin={isAdmin}>
       <link rel="stylesheet" href="/css/products.css" />
+      <script defer src="/js/productManagement.js" />
       <h1>{title}</h1>
       <section>
         <h2>Управлять товарами</h2>

@@ -24,8 +24,8 @@ module.exports = function ProductItem({ product }) {
         <h2>{product.productName}</h2>
         <div className="product-item-actions">
           <a className="btn btn-alt" href={`/admin/products/update/${product.id}`}>Редактировать</a>
-          <a className="btn btn-alt" id="delete-button" href={`/admin/products/delete/${product.id}`}>Удалить</a>
-          {/*<button className="btn btn-alt" onClick={handleDelete}>Удалить</button>*/}
+          {/*<a className="btn btn-alt" id="delete-button" href={`/admin/products/delete/${product.id}`}>Удалить</a>*/}
+          <button className="btn btn-alt" data-productid={product.id}>Удалить</button>
         </div>
       </div>
     </article>
