@@ -13,6 +13,7 @@ module.exports = function CartView({
     <Layout title={title} uid={uid} isAdmin={isAdmin} cartLength={cartLength}>
       <link rel="stylesheet" href="/css/cart.css" />
       <script defer src="/js/currencyApi.js" />
+      <script defer src="/js/cartItemManagement.js" />
       <h1>{title}</h1>
       <ul id="cart-items">
         {carts.map((cart) => (
