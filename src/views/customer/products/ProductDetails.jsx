@@ -14,7 +14,7 @@ module.exports = function AllProducts({
           <div id="product-info">
             <h1>{product.productName}</h1>
             <p>{product.summary}</p>
-            <p>{product.price}</p>
+            <p>{product.price} &#x20bd;</p>
             <button
               className="btn"
               data-productid={product.id}

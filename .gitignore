@@ -130,3 +130,4 @@ dist
 .pnp.*
 .idea
 sessions
+public/images
