@@ -1,7 +1,6 @@
 const React = require('react');
 
 module.exports = function CartItem({ cart, isAdmin }) {
-  console.log('CART ID ===>', cart.id);
   return (
     <article className="cart-item">
       <div className="cart-item-info">
@@ -15,9 +14,9 @@ module.exports = function CartItem({ cart, isAdmin }) {
         </p>
       </div>
 
-      <form className="cart-item-management">
-        <button className="btn btn-alt" data-productid={cart.id}>Удалить</button>
-      </form>
+      <div className="cart-item-management">
+        <button className="btn btn-alt delete" data-cartid={cart.id}>Удалить</button>
+      </div>
     </article>
   );
 };

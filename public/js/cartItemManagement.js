@@ -1,32 +1,33 @@
-const cartItemDeleteFormElements = document.querySelectorAll('.cart-item-management');
+document.addEventListener('DOMContentLoaded', () => {
+  const deleteButtons = document.querySelectorAll('.delete');
 
-async function deleteCartItem(e) {
-  e.preventDefault();
+  async function deleteCartItem(e) {
+    const button = e.target;
+    const cartId = button.dataset.cartid;
+    console.log('CART ID ===>', cartId);
 
-  const form = e.target;
-  let response;
-  try {
-    response = await fetch(`/cart/${productId}`, {
-      method: 'DELETE',
-      body: JSON.stringify({
-        productId,
-        quantity,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  } catch (error) {
-    console.error(error);
+    let response;
+    try {
+      response = await fetch('/cart', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cartId }),
+      });
+
+      if (response.ok) {
+        const cartItemElement = button.closest('.cart-item');
+        cartItemElement.remove();
+      } else {
+        alert('Не получен ответ от сервера');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
-  if (!response.ok) {
-    alert('Не получен ответ от сервера');
-  }
 
-  const responseData = await response.json();
-
-
-}
-cartItemDeleteFormElements.forEach((element) => {
-  element.addEventListener('submit', deleteCartItem);
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', deleteCartItem);
+  });
 });

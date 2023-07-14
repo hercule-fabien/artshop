@@ -10,14 +10,12 @@ router.get('/', async (req, res) => {
   const cart = req.session.cart || [];
   const cartLength = cart.length;
   try {
-    // Find the User by uid
     const user = await User.findByPk(uid);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Find all cart items for the user
     const carts = await Cart.findAll({
       where: { userId: user.id },
       attributes: ['id', 'userId', 'productId', 'price', 'quantity', 'createdAt', 'updatedAt'],
@@ -27,15 +25,11 @@ router.get('/', async (req, res) => {
       ],
     });
 
-    // Update the session cart with the cart item IDs
     const cartItems = carts.map((cartItem) => cartItem.id);
     req.session.cart = cartItems;
     req.session.save();
 
-    // Modify each cart item to include the 'id' property
-    const modifiedCarts = carts.map((cartItem) => {
-      return { ...cartItem.toJSON(), id: cartItem.id };
-    });
+    const modifiedCarts = carts.map((cartItem) => ({ ...cartItem.toJSON(), id: cartItem.id }));
 
     renderTemplate(CartView, {
       title: 'Корзина',
@@ -49,7 +43,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 router.post('/', async (req, res) => {
   const {
@@ -96,14 +89,16 @@ router.patch('/:productId', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
+router.delete('/', async (req, res) => {
+  const { cartId } = req.body;
+  console.log('THE ID!=>>>', cartId);
 
   try {
-    const cartItem = await Cart.findByPk(id);
+    const cartItem = await Cart.findOne({ where: { id: cartId } });
+    console.log('CART ITEM', cartItem);
 
     if (!cartItem) {
-      return res.status(404).json({ error: 'Cart item not found' });
+      return res.status(404).json({ error: 'Элемент корзины не найден' });
     }
 
     const cart = req.session.cart || [];
