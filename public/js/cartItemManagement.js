@@ -1,10 +1,11 @@
+const badge = document.querySelector('.badge');
+badge.style.display = 'none';
 document.addEventListener('DOMContentLoaded', () => {
   const deleteButtons = document.querySelectorAll('.delete');
 
   async function deleteCartItem(e) {
     const button = e.target;
     const cartId = button.dataset.cartid;
-    console.log('CART ID ===>', cartId);
 
     let response;
     try {

@@ -19,6 +19,7 @@ const {
 const errorHandler = require('./src/middleware/error-handler');
 const indexRouter = require('./src/routes/index.routes');
 const productsRouter = require('./src/routes/products.routes');
+const ordersRoute = require('./src/routes/orders.routes');
 
 const { PORT } = process.env;
 const apiKey = process.env.API_KEY;
@@ -65,6 +66,7 @@ app.use('/login', secureRoute, loginRouter);
 app.use('/products', productsRouter);
 app.use('/logout', logoutRouter);
 app.use('/cart', cartRouter);
+app.use('/orders', ordersRoute);
 app.use(protectRoutes);
 app.use('/admin', adminRouter);
 app.use(errorHandler);

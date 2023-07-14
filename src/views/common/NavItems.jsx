@@ -7,12 +7,14 @@ module.exports = function NavItems({ isAdmin, uid, cartLength }) {
         {!isAdmin && (
           <>
             <li><a href="/">В магазин</a></li>
-            <li>
-              <a href="/cart">
-                Корзина
-                <span className="badge">{cartLength}</span>
-              </a>
-            </li>
+            {uid && (
+              <li>
+                <a href="/cart">
+                  Корзина
+                  <span className="badge">{cartLength}</span>
+                </a>
+              </li>
+            )}
             {uid && (
               <li><a href="/orders">Заказы</a></li>
             )}

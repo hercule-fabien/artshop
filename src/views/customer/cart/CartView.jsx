@@ -24,7 +24,12 @@ module.exports = function CartView({
       </ul>
       <div id="cart-total">
         <p>Всего къ оплате: <span id="total-price">{totalPrice}</span> &#8381;</p>
-        <button className="btn">Оплатить</button>
+        {uid ? (
+          <button className="btn">Оплатить</button>
+        ):(
+          <p>Войдите с учетной записью чтобы продолжить</p>
+        )}
+
       </div>
     </Layout>
   );
